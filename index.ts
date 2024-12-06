@@ -13,7 +13,7 @@ switch (args[0]?.toLowerCase()) {
     break;
   case 'run':
     let input = await Bun.file(`./solutions/day-${config.day}/input.txt`).text();
-    console.log(solution[`part${args[1]}` as 'part1' | 'part2'](input));
+    console.log(solution[`part${args[1]}` as 'part1' | 'part2'](input.trimEnd()));
     break;
   case 'input':
     fetch(`https://adventofcode.com/${config.year}/day/${config.day}/input`, {

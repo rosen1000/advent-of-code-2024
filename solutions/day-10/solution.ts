@@ -2,7 +2,7 @@ import { Dir, Grid, Vec2 } from '@/utils.ts';
 
 export default {
 	part1: (input: string): number => {
-		let grid = new Grid(input);
+		let grid = new Grid(input, Number);
 		let starts: Vec2[] = [];
 		let sum = 0;
 		grid.forEach((v, p) => v == 0 && starts.push(p));
@@ -17,7 +17,7 @@ export default {
 		return sum; // 535
 	},
 	part2: (input: string): number => {
-		let grid = new Grid(input);
+		let grid = new Grid(input, Number);
 		let starts: Vec2[] = [];
 		let sum = 0;
 		grid.forEach((v, p) => v == 0 && starts.push(p));
@@ -32,7 +32,7 @@ export default {
 	},
 };
 
-function traverse(grid: Grid, pos: Vec2, explored: Vec2[], scorePtr: { value: number }) {
+function traverse(grid: Grid<number>, pos: Vec2, explored: Vec2[], scorePtr: { value: number }) {
 	if (explored.findIndex((v) => v.eq(pos)) >= 0) return;
 	explored.push(pos);
 	let value = grid.get(pos);
@@ -44,7 +44,7 @@ function traverse(grid: Grid, pos: Vec2, explored: Vec2[], scorePtr: { value: nu
 	});
 }
 
-function traverseAll(grid: Grid, pos: Vec2, scorePtr: { value: number }) {
+function traverseAll(grid: Grid<number>, pos: Vec2, scorePtr: { value: number }) {
 	let value = grid.get(pos);
 	if (value == null) return;
 	if (value == 9) return scorePtr.value++;

@@ -42,21 +42,44 @@ export class Vec2 {
 	x: number;
 	y: number;
 
-	constructor(x: number, y: number) {
+	constructor(x: number, y?: number) {
 		this.x = x;
-		this.y = y;
+		this.y = y ?? x;
 	}
 
 	add(vec: Vec2): Vec2 {
 		return new Vec2(this.x + vec.x, this.y + vec.y);
 	}
 
+	/** Persistant variant of add */
+	addP(vec: Vec2): void {
+		this.x += vec.x;
+		this.y += vec.y;
+	}
+
 	sub(vec: Vec2): Vec2 {
 		return new Vec2(this.x - vec.x, this.y - vec.y);
 	}
 
+	/** Persistant variant of sub */
+	subP(vec: Vec2): void {
+		this.x -= vec.x;
+		this.y -= vec.y;
+	}
+
 	mul(val: number): Vec2 {
 		return new Vec2(this.x * val, this.y * val);
+	}
+
+	/** Persistant variant of mul */
+	mulP(val: number): void {
+		this.x *= val;
+		this.y *= val;
+	}
+
+	set(x: number, y?: number): void {
+		this.x = x;
+		this.y = y ?? x;
 	}
 
 	eq(vec: Vec2): boolean {
@@ -78,8 +101,24 @@ export class Vec2 {
 		return new Vec2(-this.y, this.x);
 	}
 
+	copy(): Vec2 {
+		return new Vec2(this.x, this.y);
+	}
+
 	toString() {
 		return `[${this.x}, ${this.y}]`;
+	}
+
+	static from(str: string) {
+		let [x, y] = str
+			.slice(1, str.length - 2)
+			.split(', ')
+			.map(Number);
+		return new Vec2(x, y);
+	}
+
+	static get zero() {
+		return new Vec2(0, 0);
 	}
 }
 
